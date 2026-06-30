@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,7 +60,7 @@
     letter-spacing: -0.02em;
   }
   .nav-logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
   .nav-links a {
     color: var(--text-secondary);
     text-decoration: none;
@@ -69,6 +69,32 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--text-primary); }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .lang-btn {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
 
   section { padding: 6rem 2.5rem; max-width: 900px; margin: 0 auto; }
 
@@ -325,6 +351,20 @@
     color: var(--text-primary);
   }
   .project-desc { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.6; }
+  .project-metrics {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+  }
+  .metric { display: flex; flex-direction: column; gap: 2px; }
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .metric-label { font-size: 0.75rem; color: var(--text-muted); }
   .project-tech { display: flex; gap: 0.5rem; flex-wrap: wrap; }
   .tech-tag {
     font-size: 0.72rem;
@@ -334,25 +374,6 @@
     padding: 3px 9px;
     border-radius: 100px;
   }
-
-  /* PLACEHOLDER */
-  .project-placeholder {
-    background: var(--bg-card);
-    border: 1px dashed var(--border);
-    border-radius: var(--radius);
-    padding: 2.5rem;
-    text-align: center;
-  }
-  .placeholder-icon {
-    width: 48px; height: 48px;
-    border-radius: 50%;
-    background: var(--accent-dim2);
-    border: 1px dashed var(--border-accent);
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1rem;
-  }
-  .project-placeholder p { color: var(--text-muted); font-size: 0.875rem; }
-  .project-placeholder strong { display: block; color: var(--text-secondary); margin-bottom: 0.35rem; }
 
   /* EDUCATION */
   .edu-card {
@@ -428,9 +449,14 @@
     border-top: 1px solid var(--border);
   }
 
+  [data-lang-content] { display: none; }
+  [data-lang-content].lang-active { display: block; }
+  span[data-lang-content].lang-active { display: inline; }
+
   @media (max-width: 600px) {
     nav { padding: 1rem 1.25rem; }
-    .nav-links { gap: 1.25rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { display: none; }
     section { padding: 4rem 1.25rem; }
     .hero { padding-top: 7rem; }
     .edu-card { flex-direction: column; }
@@ -442,23 +468,35 @@
 <nav>
   <div class="nav-logo">MF<span>.</span></div>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about"><span data-lang-content="id">Tentang</span><span data-lang-content="en" class="lang-active">About</span></a></li>
+    <li><a href="#skills"><span data-lang-content="id">Keahlian</span><span data-lang-content="en" class="lang-active">Skills</span></a></li>
+    <li><a href="#experience"><span data-lang-content="id">Pengalaman</span><span data-lang-content="en" class="lang-active">Experience</span></a></li>
+    <li><a href="#projects"><span data-lang-content="id">Proyek</span><span data-lang-content="en" class="lang-active">Projects</span></a></li>
+    <li><a href="#contact"><span data-lang-content="id">Kontak</span><span data-lang-content="en" class="lang-active">Contact</span></a></li>
+    <li>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="id" onclick="setLang('id')">ID</button>
+      </div>
+    </li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="about">
-  <div class="hero-badge">Available for opportunities</div>
+  <div class="hero-badge">
+    <span data-lang-content="id">Tersedia untuk peluang baru</span>
+    <span data-lang-content="en" class="lang-active">Available for opportunities</span>
+  </div>
   <h1>
-    Hi, I'm <span class="name-accent">Fakhri</span>.<br/>
-    Google Ads Specialist.
+    <span data-lang-content="id">Hi, saya <span class="name-accent">Fakhri</span>.<br/>
+    Google Ads Specialist.</span>
+    <span data-lang-content="en" class="lang-active">Hi, I'm <span class="name-accent">Fakhri</span>.<br/>
+    Google Ads Specialist.</span>
   </h1>
   <p class="hero-sub">
-    Saya fokus membantu bisnis tumbuh melalui kampanye iklan yang terukur, efisien, dan berorientasi pada performa & ROI.
+    <span data-lang-content="id">Saya fokus membantu bisnis tumbuh melalui kampanye iklan yang terukur, efisien, dan berorientasi pada performa & ROI.</span>
+    <span data-lang-content="en" class="lang-active">I focus on helping businesses grow through measurable, efficient ad campaigns built around performance and ROI.</span>
   </p>
   <div class="hero-meta">
     <span class="hero-meta-item">
@@ -473,16 +511,26 @@
   <div class="hero-cta">
     <a href="#experience" class="btn btn-primary">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-      Lihat Pengalaman
+      <span data-lang-content="id">Lihat Pengalaman</span>
+      <span data-lang-content="en" class="lang-active">View Experience</span>
     </a>
-    <a href="#contact" class="btn btn-secondary">Hubungi Saya</a>
+    <a href="#contact" class="btn btn-secondary">
+      <span data-lang-content="id">Hubungi Saya</span>
+      <span data-lang-content="en" class="lang-active">Contact Me</span>
+    </a>
   </div>
 </section>
 
 <!-- SKILLS -->
 <section id="skills">
-  <p class="section-label">Keahlian</p>
-  <h2 class="section-title">Tools & Skills</h2>
+  <p class="section-label">
+    <span data-lang-content="id">Keahlian</span>
+    <span data-lang-content="en" class="lang-active">Expertise</span>
+  </p>
+  <h2 class="section-title">
+    <span data-lang-content="id">Tools & Skills</span>
+    <span data-lang-content="en" class="lang-active">Tools & Skills</span>
+  </h2>
   <div class="divider"></div>
 
   <div class="skills-grid">
@@ -491,7 +539,10 @@
         <svg viewBox="0 0 24 24" fill="none"><path d="M3.5 17.5L8 9l4.5 8H3.5z" fill="#4f8ef7" opacity="0.9"/><circle cx="18.5" cy="13.5" r="4.5" fill="#4f8ef7" opacity="0.7"/><path d="M8 9l5 4-1.5 4" stroke="#4f8ef7" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
       <p class="skill-name">Google Ads</p>
-      <p class="skill-desc">Search, Display, Shopping & Performance Max. Bidding strategy, keyword research, dan ROAS optimization.</p>
+      <p class="skill-desc">
+        <span data-lang-content="id">Search, Display, Shopping & Performance Max. Bidding strategy, keyword research, dan ROAS optimization.</span>
+        <span data-lang-content="en" class="lang-active">Search, Display, Shopping & Performance Max. Bidding strategy, keyword research, and ROAS optimization.</span>
+      </p>
     </div>
 
     <div class="skill-card">
@@ -499,23 +550,38 @@
         <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="12" width="4" height="9" rx="1" fill="#4f8ef7" opacity="0.5"/><rect x="10" y="7" width="4" height="14" rx="1" fill="#4f8ef7" opacity="0.75"/><rect x="17" y="3" width="4" height="18" rx="1" fill="#4f8ef7"/></svg>
       </div>
       <p class="skill-name">Google Analytics</p>
-      <p class="skill-desc">Setup tracking, goal conversion, audience segmentation, dan performance reporting berbasis data.</p>
+      <p class="skill-desc">
+        <span data-lang-content="id">Setup tracking, goal conversion, audience segmentation, dan performance reporting berbasis data.</span>
+        <span data-lang-content="en" class="lang-active">Tracking setup, goal conversion, audience segmentation, and data-driven performance reporting.</span>
+      </p>
     </div>
 
     <div class="skill-card">
       <div class="skill-icon">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L2 9l10 6 10-6-10-6z" fill="#4f8ef7" opacity="0.6"/><path d="M2 15l10 6 10-6" stroke="#4f8ef7" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/></svg>
       </div>
-      <p class="skill-name">Campaign Optimization</p>
-      <p class="skill-desc">A/B testing, competitor analysis, targeting adjustments, dan conversion tracking management.</p>
+      <p class="skill-name">
+        <span data-lang-content="id">Optimasi Kampanye</span>
+        <span data-lang-content="en" class="lang-active">Campaign Optimization</span>
+      </p>
+      <p class="skill-desc">
+        <span data-lang-content="id">A/B testing, competitor analysis, targeting adjustments, dan conversion tracking management.</span>
+        <span data-lang-content="en" class="lang-active">A/B testing, competitor analysis, targeting adjustments, and conversion tracking management.</span>
+      </p>
     </div>
 
     <div class="skill-card">
       <div class="skill-icon">
         <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="3" rx="1" fill="#4f8ef7" opacity="0.4"/><rect x="3" y="10" width="13" height="3" rx="1" fill="#4f8ef7" opacity="0.65"/><rect x="3" y="16" width="9" height="3" rx="1" fill="#4f8ef7" opacity="0.9"/></svg>
       </div>
-      <p class="skill-name">Reporting & Analysis</p>
-      <p class="skill-desc">Menyusun laporan performa yang actionable menggunakan Google Ads Dashboard & Analytics.</p>
+      <p class="skill-name">
+        <span data-lang-content="id">Pelaporan & Analisis</span>
+        <span data-lang-content="en" class="lang-active">Reporting & Analysis</span>
+      </p>
+      <p class="skill-desc">
+        <span data-lang-content="id">Menyusun laporan performa yang actionable menggunakan Google Ads Dashboard & Analytics.</span>
+        <span data-lang-content="en" class="lang-active">Building actionable performance reports using Google Ads Dashboard & Analytics.</span>
+      </p>
     </div>
 
     <div class="skill-card">
@@ -523,23 +589,38 @@
         <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="#4f8ef7" stroke-width="1.5" opacity="0.7"/><path d="M8 21h8M12 17v4" stroke="#4f8ef7" stroke-width="1.5" stroke-linecap="round" opacity="0.9"/></svg>
       </div>
       <p class="skill-name">Microsoft Office</p>
-      <p class="skill-desc">Excel, Word, PowerPoint untuk dokumentasi, laporan harian, dan presentasi data.</p>
+      <p class="skill-desc">
+        <span data-lang-content="id">Excel, Word, PowerPoint untuk dokumentasi, laporan harian, dan presentasi data.</span>
+        <span data-lang-content="en" class="lang-active">Excel, Word, PowerPoint for documentation, daily reporting, and data presentation.</span>
+      </p>
     </div>
 
     <div class="skill-card">
       <div class="skill-icon">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#4f8ef7" stroke-width="1.5" opacity="0.5"/><path d="M12 8v4l3 3" stroke="#4f8ef7" stroke-width="1.5" stroke-linecap="round" opacity="0.9"/></svg>
       </div>
-      <p class="skill-name">Project Management</p>
-      <p class="skill-desc">Koordinasi tim, manajemen jadwal, dan pelaporan operasional lintas departemen.</p>
+      <p class="skill-name">
+        <span data-lang-content="id">Manajemen Proyek</span>
+        <span data-lang-content="en" class="lang-active">Project Management</span>
+      </p>
+      <p class="skill-desc">
+        <span data-lang-content="id">Koordinasi tim, manajemen jadwal, dan pelaporan operasional lintas departemen.</span>
+        <span data-lang-content="en" class="lang-active">Team coordination, schedule management, and cross-department operational reporting.</span>
+      </p>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
 <section id="experience">
-  <p class="section-label">Pengalaman</p>
-  <h2 class="section-title">Riwayat Kerja</h2>
+  <p class="section-label">
+    <span data-lang-content="id">Pengalaman</span>
+    <span data-lang-content="en" class="lang-active">Experience</span>
+  </p>
+  <h2 class="section-title">
+    <span data-lang-content="id">Riwayat Kerja</span>
+    <span data-lang-content="en" class="lang-active">Work History</span>
+  </h2>
   <div class="divider"></div>
 
   <div class="timeline">
@@ -547,15 +628,33 @@
     <div class="timeline-item">
       <div class="timeline-dot"></div>
       <div class="timeline-header">
-        <span class="timeline-role">Google Ads Specialist (Advertiser)</span>
-        <span class="timeline-period">Okt 2024 – Sekarang</span>
+        <span class="timeline-role">
+          <span data-lang-content="id">Google Ads Specialist (Advertiser)</span>
+          <span data-lang-content="en" class="lang-active">Google Ads Specialist (Advertiser)</span>
+        </span>
+        <span class="timeline-period">
+          <span data-lang-content="id">Okt 2024 – Sekarang</span>
+          <span data-lang-content="en" class="lang-active">Oct 2024 – Present</span>
+        </span>
       </div>
       <p class="timeline-company">PT Almira Berkah Abadi <span>· Ihsan Grup · Jakarta</span></p>
       <ul class="timeline-list">
-        <li>Merancang, mengelola, dan mengoptimasi kampanye Google Ads secara end-to-end.</li>
-        <li>Melakukan keyword research, competitor analysis, dan audience segmentation untuk meningkatkan performa iklan.</li>
-        <li>Mengoptimasi kampanye melalui bidding strategy, targeting adjustments, conversion tracking, dan ROAS.</li>
-        <li>Menyusun dan mempresentasikan laporan performa kampanye menggunakan Google Analytics & Ads Dashboard.</li>
+        <li>
+          <span data-lang-content="id">Merancang, mengelola, dan mengoptimasi kampanye Google Ads secara end-to-end.</span>
+          <span data-lang-content="en" class="lang-active">Designed, managed, and optimized Google Ads campaigns end-to-end.</span>
+        </li>
+        <li>
+          <span data-lang-content="id">Melakukan keyword research, competitor analysis, dan audience segmentation untuk meningkatkan performa iklan.</span>
+          <span data-lang-content="en" class="lang-active">Conducted keyword research, competitor analysis, and audience segmentation to improve ad performance.</span>
+        </li>
+        <li>
+          <span data-lang-content="id">Mengoptimasi kampanye melalui bidding strategy, targeting adjustments, conversion tracking, dan ROAS.</span>
+          <span data-lang-content="en" class="lang-active">Optimized campaigns using bidding strategies, targeting adjustments, conversion tracking, and ROAS.</span>
+        </li>
+        <li>
+          <span data-lang-content="id">Menyusun dan mempresentasikan laporan performa kampanye menggunakan Google Analytics & Ads Dashboard.</span>
+          <span data-lang-content="en" class="lang-active">Prepared and presented campaign performance reports using Google Analytics & Ads Dashboard.</span>
+        </li>
       </ul>
     </div>
 
@@ -563,39 +662,75 @@
       <div class="timeline-dot muted"></div>
       <div class="timeline-header">
         <span class="timeline-role">PPIC DLC</span>
-        <span class="timeline-period">Mei 2023 – Sep 2024</span>
+        <span class="timeline-period">
+          <span data-lang-content="id">Mei 2023 – Sep 2024</span>
+          <span data-lang-content="en" class="lang-active">May 2023 – Sep 2024</span>
+        </span>
       </div>
       <p class="timeline-company">PT Ultra Prima Abadi <span>· Orang Tua Grup · Jakarta</span></p>
       <ul class="timeline-list">
-        <li>Mencatat kedatangan Raw Materials dan Packing Materials ke sistem database Oracle.</li>
-        <li>Stock opname Raw Materials, Packing Materials, dan Co Product (Rejected Finished Goods).</li>
-        <li>Membuat laporan harian stok material untuk seluruh DLC site.</li>
+        <li>
+          <span data-lang-content="id">Mencatat kedatangan Raw Materials dan Packing Materials ke sistem database Oracle.</span>
+          <span data-lang-content="en" class="lang-active">Recorded incoming Raw Materials and Packing Materials into the Oracle database system.</span>
+        </li>
+        <li>
+          <span data-lang-content="id">Stock opname Raw Materials, Packing Materials, dan Co Product (Rejected Finished Goods).</span>
+          <span data-lang-content="en" class="lang-active">Performed stock opname for Raw Materials, Packing Materials, and Co Product (Rejected Finished Goods).</span>
+        </li>
+        <li>
+          <span data-lang-content="id">Membuat laporan harian stok material untuk seluruh DLC site.</span>
+          <span data-lang-content="en" class="lang-active">Created daily material stock reports for all DLC sites.</span>
+        </li>
       </ul>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-dot muted"></div>
       <div class="timeline-header">
-        <span class="timeline-role">Admin Staff</span>
-        <span class="timeline-period">Agu 2022 – Des 2022</span>
+        <span class="timeline-role">
+          <span data-lang-content="id">Admin Staff</span>
+          <span data-lang-content="en" class="lang-active">Admin Staff</span>
+        </span>
+        <span class="timeline-period">
+          <span data-lang-content="id">Agu 2022 – Des 2022</span>
+          <span data-lang-content="en" class="lang-active">Aug 2022 – Dec 2022</span>
+        </span>
       </div>
       <p class="timeline-company">PT Safar Umroh Sukses <span>· Bogor</span></p>
       <ul class="timeline-list">
-        <li>Membuat surat tugas perjalanan dinas resmi untuk karyawan.</li>
-        <li>Menyusun manifest keberangkatan klien.</li>
-        <li>Melayani pertanyaan, keluhan, dan saran dari klien sebagai call center & contact support.</li>
+        <li>
+          <span data-lang-content="id">Membuat surat tugas perjalanan dinas resmi untuk karyawan.</span>
+          <span data-lang-content="en" class="lang-active">Created official travel assignment letters for employees.</span>
+        </li>
+        <li>
+          <span data-lang-content="id">Menyusun manifest keberangkatan klien.</span>
+          <span data-lang-content="en" class="lang-active">Prepared clients' departure manifests.</span>
+        </li>
+        <li>
+          <span data-lang-content="id">Melayani pertanyaan, keluhan, dan saran dari klien sebagai call center & contact support.</span>
+          <span data-lang-content="en" class="lang-active">Served as call center and contact support for client questions, complaints, and suggestions.</span>
+        </li>
       </ul>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-dot muted"></div>
       <div class="timeline-header">
-        <span class="timeline-role">Office Administrator (Intern)</span>
-        <span class="timeline-period">Feb 2022 – Mar 2022</span>
+        <span class="timeline-role">
+          <span data-lang-content="id">Office Administrator (Magang)</span>
+          <span data-lang-content="en" class="lang-active">Office Administrator (Intern)</span>
+        </span>
+        <span class="timeline-period">
+          <span data-lang-content="id">Feb 2022 – Mar 2022</span>
+          <span data-lang-content="en" class="lang-active">Feb 2022 – Mar 2022</span>
+        </span>
       </div>
       <p class="timeline-company">PT Anugerah Mandiri Travel <span>· Depok</span></p>
       <ul class="timeline-list">
-        <li>Mencatat data pribadi pelanggan dan menyusun manifest keberangkatan klien.</li>
+        <li>
+          <span data-lang-content="id">Mencatat data pribadi pelanggan dan menyusun manifest keberangkatan klien.</span>
+          <span data-lang-content="en" class="lang-active">Recorded customer personal data and prepared clients' departure manifests.</span>
+        </li>
       </ul>
     </div>
 
@@ -603,12 +738,21 @@
       <div class="timeline-dot muted"></div>
       <div class="timeline-header">
         <span class="timeline-role">Office Administrator</span>
-        <span class="timeline-period">Okt 2020 – Apr 2021</span>
+        <span class="timeline-period">
+          <span data-lang-content="id">Okt 2020 – Apr 2021</span>
+          <span data-lang-content="en" class="lang-active">Oct 2020 – Apr 2021</span>
+        </span>
       </div>
       <p class="timeline-company">PT Baitullah Dua Zamzam <span>· Depok</span></p>
       <ul class="timeline-list">
-        <li>Mencatat arus barang masuk dan keluar gudang.</li>
-        <li>Mengelola data pribadi pelanggan dan pembayaran.</li>
+        <li>
+          <span data-lang-content="id">Mencatat arus barang masuk dan keluar gudang.</span>
+          <span data-lang-content="en" class="lang-active">Recorded the flow of goods in and out of the warehouse.</span>
+        </li>
+        <li>
+          <span data-lang-content="id">Mengelola data pribadi pelanggan dan pembayaran.</span>
+          <span data-lang-content="en" class="lang-active">Managed customer personal data and payments.</span>
+        </li>
       </ul>
     </div>
 
@@ -618,19 +762,29 @@
 <!-- PROJECTS -->
 <section id="projects">
   <p class="section-label">Projects</p>
-  <h2 class="section-title">IT Projects</h2>
+  <h2 class="section-title">
+    <span data-lang-content="id">IT Projects</span>
+    <span data-lang-content="en" class="lang-active">IT Projects</span>
+  </h2>
   <div class="divider"></div>
 
   <div class="project-card">
-    <span class="project-tag">Google Ads · Travel Umroh & Haji</span>
+    <span class="project-tag">
+      <span data-lang-content="id">Google Ads · Travel & Umroh</span>
+      <span data-lang-content="en" class="lang-active">Google Ads · Travel & Pilgrimage</span>
+    </span>
     <h3 class="project-title">Performance Campaign Management — Almira Travel (Herbivora Ads)</h3>
     <p class="project-desc">
-      Mengelola dan mengoptimasi 6 kampanye Google Search Ads untuk biro travel Umroh dan Haji, dengan total budget terkelola lebih dari Rp2,6 miliar. Fokus pada efisiensi cost-per-conversion dan peningkatan dominasi posisi iklan di hasil pencarian.
+      <span data-lang-content="id">Mengelola dan mengoptimasi 7 kampanye Google Search Ads untuk biro travel umroh, dengan total budget terkelola lebih dari Rp2,6 miliar. Fokus pada efisiensi cost-per-conversion dan peningkatan dominasi posisi iklan di hasil pencarian.</span>
+      <span data-lang-content="en" class="lang-active">Managed and optimized 7 Google Search Ads campaigns for an Umroh travel agency, with a total managed budget of over Rp2.6 billion. Focused on cost-per-conversion efficiency and improving ad position dominance in search results.</span>
     </p>
     <div class="project-metrics">
       <div class="metric">
         <span class="metric-value">48.180</span>
-        <span class="metric-label">Total Konversi</span>
+        <span class="metric-label">
+          <span data-lang-content="id">Total Konversi</span>
+          <span data-lang-content="en" class="lang-active">Total Conversions</span>
+        </span>
       </div>
       <div class="metric">
         <span class="metric-value">8,43%</span>
@@ -645,19 +799,26 @@
         <span class="metric-label">Top Impression Share</span>
       </div>
     </div>
-    <div class="project-tech" style="margin-top: 1.25rem;">
+    <div class="project-tech">
       <span class="tech-tag">Google Search Ads</span>
       <span class="tech-tag">Bid Strategy (Target CPA)</span>
       <span class="tech-tag">Conversion Tracking</span>
-      <span class="tech-tag">Budget Rp2,6 Miliar+</span>
+      <span class="tech-tag">
+        <span data-lang-content="id">Budget Rp2,6 Miliar+</span>
+        <span data-lang-content="en" class="lang-active">Budget Rp2.6 Billion+</span>
+      </span>
     </div>
   </div>
 
   <div class="project-card">
-    <span class="project-tag">Full Stack · Healthcare</span>
+    <span class="project-tag">
+      <span data-lang-content="id">Full Stack · Kesehatan</span>
+      <span data-lang-content="en" class="lang-active">Full Stack · Healthcare</span>
+    </span>
     <h3 class="project-title">Hospital Data Collection System</h3>
     <p class="project-desc">
-      Sistem pencatatan data rumah sakit berbasis web yang dibangun menggunakan C# (.NET) dan Microsoft SQL Server. Meliputi fitur CRUD lengkap dengan tampilan frontend menggunakan Bootstrap.
+      <span data-lang-content="id">Sistem pencatatan data rumah sakit berbasis web yang dibangun menggunakan C# (.NET) dan Microsoft SQL Server. Meliputi fitur CRUD lengkap dengan tampilan frontend menggunakan Bootstrap.</span>
+      <span data-lang-content="en" class="lang-active">A web-based hospital data collection system built with C# (.NET) and Microsoft SQL Server. Includes complete CRUD functionality with a Bootstrap frontend.</span>
     </p>
     <div class="project-tech">
       <span class="tech-tag">C# (.NET)</span>
@@ -671,8 +832,14 @@
 
 <!-- EDUCATION -->
 <section id="education">
-  <p class="section-label">Pendidikan</p>
-  <h2 class="section-title">Latar Belakang</h2>
+  <p class="section-label">
+    <span data-lang-content="id">Pendidikan</span>
+    <span data-lang-content="en" class="lang-active">Education</span>
+  </p>
+  <h2 class="section-title">
+    <span data-lang-content="id">Latar Belakang</span>
+    <span data-lang-content="en" class="lang-active">Background</span>
+  </h2>
   <div class="divider"></div>
 
   <div class="edu-card">
@@ -683,9 +850,15 @@
       </svg>
     </div>
     <div>
-      <p class="edu-degree">S1 Teknik Informatika</p>
+      <p class="edu-degree">
+        <span data-lang-content="id">S1 Teknik Informatika</span>
+        <span data-lang-content="en" class="lang-active">Bachelor of Informatics Engineering</span>
+      </p>
       <p class="edu-school">Universitas Indraprasta PGRI · Jakarta</p>
-      <p class="edu-meta">Lulus Agustus 2021 · Dean's List 2017–2021</p>
+      <p class="edu-meta">
+        <span data-lang-content="id">Lulus Agustus 2021 · Dean's List 2017–2021</span>
+        <span data-lang-content="en" class="lang-active">Graduated August 2021 · Dean's List 2017–2021</span>
+      </p>
       <span class="edu-gpa">GPA 3.45 / 4.0</span>
     </div>
   </div>
@@ -693,9 +866,18 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <p class="section-label">Kontak</p>
-  <h2 class="section-title">Mari Terhubung</h2>
-  <p class="section-desc">Terbuka untuk diskusi, kolaborasi, atau peluang kerja baru.</p>
+  <p class="section-label">
+    <span data-lang-content="id">Kontak</span>
+    <span data-lang-content="en" class="lang-active">Contact</span>
+  </p>
+  <h2 class="section-title">
+    <span data-lang-content="id">Mari Terhubung</span>
+    <span data-lang-content="en" class="lang-active">Let's Connect</span>
+  </h2>
+  <p class="section-desc">
+    <span data-lang-content="id">Terbuka untuk diskusi, kolaborasi, atau peluang kerja baru.</span>
+    <span data-lang-content="en" class="lang-active">Open to discussions, collaborations, or new job opportunities.</span>
+  </p>
   <div class="divider"></div>
 
   <div class="contact-grid">
@@ -740,6 +922,34 @@
 <footer>
   <p>© 2025 Muhammad Fakhri Hidayat · Google Ads Specialist</p>
 </footer>
+
+<script>
+  function setLang(lang) {
+    var contentEls = document.querySelectorAll('[data-lang-content]');
+    contentEls.forEach(function(el) {
+      if (el.getAttribute('data-lang-content') === lang) {
+        el.classList.add('lang-active');
+      } else {
+        el.classList.remove('lang-active');
+      }
+    });
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      if (btn.getAttribute('data-lang') === lang) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    document.documentElement.lang = lang;
+    try { localStorage.setItem('portfolio-lang', lang); } catch(e) {}
+  }
+
+  (function() {
+    var saved = null;
+    try { saved = localStorage.getItem('portfolio-lang'); } catch(e) {}
+    if (saved === 'id') { setLang('id'); }
+  })();
+</script>
 
 </body>
 </html>
